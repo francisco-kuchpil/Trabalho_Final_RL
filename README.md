@@ -25,7 +25,7 @@ Apesar dessas mudanças, não alteramos a probabilidade dos hiper-parâmetros de
   Consideramos que a faixa permitida de hiper-parâmetros de aprendizado era muito larga, e incentivava muito a exploração de valores extremos que claramente não iriam ser ótimos. Por consequência, fizemos as seguintes alterações: 
 
   - Diminuímos muito o máximo do learning rate do ator.
-  - Diminuímos o máximo do learning rate do critic (mas deixamos mais que o do ator).
+  - Diminuímos o máximo do learning rate do critic (mas deixamos maior que o do ator).
   - Aumentamos muito o mínimo do Batch Size.
   - Diminuimos o máximo do Batch Size.
 
