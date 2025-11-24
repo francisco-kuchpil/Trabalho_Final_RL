@@ -47,7 +47,7 @@ Apesar disso, mantivemos o Learn Step mais ou menos na mesma faixa, pois achamos
 - Diminuimos Tau
 - Aumentamos Gamma consideravelmente.
 
-O resultado de todas essas mudanças foi o seguinte: 
+O código rodado pode ser visto em Parametros.ipnyb resultado de todas essas mudanças foi o seguinte: 
 
 
 <img width="1190" height="590" alt="image" src="https://github.com/user-attachments/assets/466a8882-2889-4a2f-bcfa-2d6b5c072bd1" />
