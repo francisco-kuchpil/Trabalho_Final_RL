@@ -10,12 +10,15 @@ Francisco Kuchpil e Heitor Trielli
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/daef97e3-0df0-4027-811e-9f559e20bffa" />
 
 
-  Analisamos que o algoritmo incial apresenta uma instabilidade muito grande no treinamento, oscilando em sua pontuação média e não tendo uma melhoria estável na sua performence ao longo do tempo. Para tentar superar esse fato, inicialmente mudamos alguns hiperparâmetros, de acordo com as seguintes justificativas: 
+  Analisamos que o algoritmo incial apresenta uma instabilidade muito grande no treinamento, oscilando em sua pontuação média e não tendo uma melhoria estável na sua performence ao longo do tempo. 
 
-# Rodando o algoritmo com mudança de parâmetros :
+# Rodando o algoritmo com mudança de parâmetros:  
+
+Para tentar superar a instabilidade da porformance dos agente, as primeiras alterações que fizemos no algoritmo foi a mudança de alguns parâmetros. Fizemos isso de acordo com as seguintes justificativas:  
+
 ## 1) Mudança nos parâmetros de mutação: 
 
-  Consideramos essa a alteração mais importante nos parâmetros, pois entedemos que os parâmetros de mutação estavam muito altos. Isso explicaria a oscilação da pontuação média grande, e a dificuldade dos agentes de aprender, pois os agentes estão sendo alterados com muita frequência e com muita intensidade. Por consequência, mudamos os seguintes parâmetros: 
+  Consideramos essa a alteração mais importante, pois entedemos que os parâmetros de mutação estavam muito altos. Isso explicaria a oscilação da pontuação média grande, e a dificuldade dos agentes de aprender, pois os agentes estão sendo alterados com muita frequência e com muita intensidade. Por consequência, fizemos as seguintes alterações: 
 
   - Aumentamos muito a chance das mutações não acontecerem.
   - Diminuimos a chance das mudanças na arquitetura.
