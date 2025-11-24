@@ -12,6 +12,7 @@ Francisco Kuchpil e Heitor Trielli
 
   Analisamos que o algoritmo incial apresenta uma instabilidade muito grande no treinamento, oscilando em sua pontuação média e não tendo uma melhoria estável na sua performence ao longo do tempo. Para tentar superar esse fato, inicialmente mudamos alguns hiperparâmetros, de acordo com as seguintes justificativas: 
 
+# Rodando o algoritmo mudança de parâmetros :
 ## 1) Mudança nos parâmetros de mutação: 
 
   Consideramos essa a alteração mais importante nos parâmetros, pois entedemos que os parâmetros de mutação estavam muito altos. Isso explicaria a oscilação da pontuação média grande, e a dificuldade dos agentes de aprender, pois os agentes estão sendo alterados com muita frequência e com muita intensidade. Por consequência, mudamos os seguintes parâmetros: 
