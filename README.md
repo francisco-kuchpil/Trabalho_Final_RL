@@ -1,5 +1,6 @@
 # Trabalho_Final_RL
 
+ ### 1) Rodando o algoritmo inicial :
   Para rodar o código original, instalamos todas as dependências usando WSL (para que o sistema tivesse suporte em Linux, já que o Windows teve problema em aceitar algumas dependências). Para que ele rodasse, fizemos apenas uma alteração na função "create_population()", devido a versão do AgilRL usada. O código pode ser visto em Original.ipynb, e demorou 3h e 15 min para rodar totalmente. O resultado obtido da pontuação média da população de acordo com a iteração pode ser vista no gráfico:  
   
   
@@ -46,5 +47,7 @@ O resultado de todas essas mudanças foi o seguinte:
 
 
 <img width="1190" height="590" alt="image" src="https://github.com/user-attachments/assets/466a8882-2889-4a2f-bcfa-2d6b5c072bd1" />
+
+
 
 
