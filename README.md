@@ -1,4 +1,6 @@
-Trabalho Final RL  
+Trabalho Final RL:  
+
+  
 Francisco Kuchpil e Heitor Trielli 
 
  # Rodando o algoritmo inicial :
