@@ -77,7 +77,7 @@ O código rodado pode ser visto em Diminuicao.ipnyb, e resultado dessas mudança
 
 Analisamos, rodando o código várias vezes, que o agente teve uma ótima curva de aprendizado, mas teve quedas abruptas e dificuldade em manter os melhores modelos. Essa análise inspirou a última mudança que fizemos no código:
 
-# Três fases :
+# Treinando em três fases :
 
 Percebemos que o problema tratado é extremamente instável. Pela gráfico das pontuações médias, nossa configuração era capaz de alcançar um bom desempenho, com a exploração de parâmetros sendo feita pela mutação e seleção de bons agentes. Porém por se tratar de quatro agentes interagindo em um mesmo ambiente, sabemos que a mutação em um deles altera a performance de todos. Se temos um bom desempenho dos agentes, temos que eles estão tomando decisões em um "espaço estreito", e uma alteração em seu ambiente prejudica significativamente seu desempenho e seu aprendizado. Portanto, interpretamos da curva que os agentes estavam bons, e uma sequência de mutações ruins atrapalharam seu desempenho, e a instabilidade também no ambiente causadas pelas mutações fez com que os agentes bons inicialmente tivessem menos chance de serem selecionados. É um problema com quatro agentes (pouco) interagindo em um mesmo ambiente, com mutações e seleções de agente frequentes, o que faz com que a instabilidade na população seja muito grande.
   
