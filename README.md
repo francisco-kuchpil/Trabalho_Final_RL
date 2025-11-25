@@ -4,7 +4,7 @@ Trabalho Final RL:
 Francisco Kuchpil e Heitor Trielli 
 
  # Rodando o algoritmo inicial :
-  Para rodar o código original, instalamos todas as dependências usando WSL (para que o sistema tivesse suporte em Linux, já que o Windows teve problema em aceitar algumas dependências). Para que ele rodasse, fizemos apenas uma alteração na função "create_population()", devido a versão do AgilRL usada. O código pode ser visto em Original.ipynb, e demorou 3h e 15 min para rodar totalmente. O resultado obtido da pontuação média da população de acordo com a iteração pode ser vista no gráfico:  
+  Para rodar o código original, instalamos todas as dependências usando WSL (para que o sistema tivesse suporte em Linux, já que o Windows teve problemas em aceitar algumas dependências). Para que ele rodasse, fizemos apenas uma alteração na função "create_population()", devido a versão do AgilRL usada. O código pode ser visto em Original.ipynb, e demorou 3h e 15 min para rodar totalmente. O resultado obtido da pontuação média da população de acordo com a iteração pode ser vista no gráfico:  
   
   
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/daef97e3-0df0-4027-811e-9f559e20bffa" />
@@ -60,11 +60,22 @@ O código rodado pode ser visto em Parametros.ipnyb, e resultado de todas essas 
 
 # Diminuindo os paramêtros de mutação ao longo do treino:  
 
-Interpretamos que diminuir os parâmetros de mutação foi muito positivo para a performance dos agente ao longo do tempo. Porém, diminuir muito eles reduz a exploração dos agentes, e podemos ficar presos a agentes com parâmetros ruins. Portanto, decidimos manter os parâmetros de mutação como estavam, mas diminui-los ao longo do tempo, favorecendo assim uma maior exploração no ínicio e uma maior exploitação no final.  
+Interpretamos que diminuir os parâmetros de mutação foi muito positivo para a performance dos agente ao longo do tempo. Nas novas alterações no código diminuimos ainda mais a probabilidade de novas camadas nas mutações, e zeramos a probabilidade de mutações na arquitetura, variáveis que consideramos muito destrutivas e com pouco retorno pela exploração (depois, percebemos que não era bem assim). Porém, consideramos que diminuir muito as outras probabilidades de mutação dos agentes reduzeria demais a exploração, e poderíamos ficar presos a agentes com parâmetros ruins. Portanto, decidimos diminui-las ao longo do tempo, favorecendo assim uma maior exploração no ínicio e uma maior exploitação no final. 
   Para implementar essa mudança, definimos a variável progress, que é uma fração do maior número de passos dado por um agente (variável que controla a continuidade do loop de treinamento) pelo número máximo de passos. Assim, 0 ≤ progresso < 1.  
   Depois, criamos a variável decay, que é igual a (1 - 0.9 * progress), ou seja, varia de 1 a 0.1 conforme vamos avançando no treinamento. Multiplicamos todas os parâmetros de mutação por elas, ou seja, diminuimos progressivamente a probabilidade de cada mutação ao longo do treino.  
   Além disso, também aumentamos progressivamente a probabilidade de não haver uma mutação nos agentes. Estabelecendo base como a probabilidade inicial de não haver uma mutação, definimos que a probabilidade de não haver uma mutação em um determinado agente é igual a base + (1 - base) * progress.
+  Também aumentamos consideravelmente (de 1 para 5) a variável eval_loop. Ela controla quantos valores de fitness são usados para avaliar os agentes no tournament, e aumentar ela diminui o "azar" de modelos ruins ganharem de bons. Assim, esperamos também estabilizar o aprendizado. 
 
 O código rodado pode ser visto em Diminuicao.ipnyb, e resultado dessas mudanças foi o seguinte:
 
+<img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/0da5b830-70c0-4a03-9e09-caa138493601" />
+
+Analisamos, rodando o código várias vezes, que o agente teve uma ótima curva de aprendizado, até mais ou menos 60 por cento do treinamento. Essa observação inspirou nossa última alteração no código.
+
+# Dois termos de regularização:
+
+  Percebemos que o problema tratado é extremamente instável. Pela gráfico das pontuações médias, percebemos que nossa configuração era capaz de alcançar um bom desempenho, com a exploração de parâmetros sendo feita pela mutação e seleção de bons agentes. Porém por se tratar de quatro agentes interagindo em um mesmo ambiente, sabemos que a mutação em um deles altera a performance de todos. Se temos um bom desempenho dos agentes, temos que eles estão tomando decisões em um "espaço estreito", e uma alteração em seu ambiente prejudica significativamente seu desempenho e seu aprendizado. Portanto, interpretamos da curva que os agentes estavam bons, e uma sequência de mutações ruins atrapalharam seu desempenho, e a instabilidade também no ambiente causadas pelas mutações fez com que os agentes bons inicialmente tivessem menos chance de serem selecionados. É um problema com quatro agentes (pouco) interagindo em um mesmo ambiente, com mutações e seleções de agente frequentes, o que faz com que a instabilidade na população seja muito grande. 
+  Portanto, decidimos manter o decaimento das taxas de mutação, porém após 60 por cento do treinamento (progress > 0.6), aumentar muito essa taxa (fazendo  decay = (1 - progress)**2). A suposição aqui é que até 60 por cento do treinamento nossa estratégia consegue selecionar e treinar bons agentes na população, e continuar com eles e seu treinamento é muito mais importante que explorar os parâmetros através de mutações. Assim diminuimos muito a instabilidade do modelo. Com uma taxa de decaimento tão forte, decidimos voltar com a probabilidade de mutação na arquitetura (agora = 0.02), ainda bem baixa. 
+
+Essa foi a última alteração que fizemos no código, e ele pode ser visto em "Final.ipynb". Esses foram o resultados: 
 
