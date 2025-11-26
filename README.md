@@ -12,7 +12,7 @@ Francisco Kuchpil e Heitor Trielli
 
 
   
-Analisamos que o algoritmo incial apresenta uma instabilidade muito grande no treinamento, oscilando em sua pontuação média e não tendo uma melhoria estável na sua performence ao longo do tempo. 
+Analisamos que o algoritmo inicial apresenta uma instabilidade muito grande no treinamento, oscilando em sua pontuação média e não tendo uma melhoria estável na sua performence ao longo do tempo. 
 
 # Rodando o algoritmo com mudança de parâmetros:  
 
@@ -63,11 +63,11 @@ O código rodado pode ser visto em Parametros.ipnyb, e resultado de todas essas 
 
 # Diminuindo os paramêtros de mutação ao longo do treino:  
 
-Interpretamos que diminuir os parâmetros de mutação foi muito positivo para a performance dos agente ao longo do tempo. Nas novas alterações no código diminuimos ainda mais a probabilidade de novas camadas nas mutações, e zeramos a probabilidade de mutações na arquitetura, variáveis que consideramos muito destrutivas e com pouco retorno pela exploração (depois, percebemos que não era bem assim). Porém, consideramos que diminuir muito as outras probabilidades de mutação dos agentes reduzeria demais a exploração, e poderíamos ficar presos a agentes com parâmetros ruins. Portanto, decidimos diminui-las ao longo do tempo, favorecendo assim uma maior exploração no ínicio e uma maior exploitação no final. Para implementar essa mudança, definimos a variável progress, que é uma fração do maior número de passos dado por um agente (variável que controla a continuidade do loop de treinamento) pelo número máximo de passos. Assim, 0 ≤ progresso < 1.
+Interpretamos que diminuir os parâmetros de mutação foi muito positivo para a performance dos agente ao longo do tempo. Nas novas alterações no código diminuimos ainda mais a probabilidade de novas camadas nas mutações, e zeramos a probabilidade de mutações na arquitetura, variáveis que consideramos muito destrutivas e com pouco retorno pela exploração (depois, percebemos que não era bem assim). Porém, consideramos que diminuir muito as outras probabilidades de mutação dos agentes reduziria demais a exploração, e poderíamos ficar presos a agentes com parâmetros ruins. Portanto, decidimos diminui-las ao longo do tempo, favorecendo assim uma maior exploração no ínicio e uma maior exploitação no final. Para implementar essa mudança, definimos a variável progress, que é uma fração do maior número de passos dado por um agente (variável que controla a continuidade do loop de treinamento) pelo número máximo de passos. Assim, 0 ≤ progresso < 1.
 
 Depois, criamos a variável decay, que é igual a (1 - 0.9 * progress), ou seja, varia de 1 a 0.1 conforme vamos avançando no treinamento. Multiplicamos todas os parâmetros de mutação por elas, ou seja, diminuimos progressivamente a probabilidade de cada mutação ao longo do treino (além da força das mutações).
 
-Além disso, também aumentamos progressivamente a probabilidade de não haver uma mutação nos agentes. Estabelecendo base como a probabilidade inicial de não haver uma mutação, definimos a probabilidade de não haver uma mutação em uma determinada momento do treino como base + (1 - base) * progress.
+Além disso, também aumentamos progressivamente a probabilidade de não haver uma mutação nos agentes. Estabelecendo base como a probabilidade inicial de não haver uma mutação, definimos a probabilidade de não haver uma mutação em um determinado momento do treino como base + (1 - base) * progress.
 
 
 Também aumentamos consideravelmente (de 1 para 5) a variável eval_loop. Ela controla quantos valores de fitness são usados para avaliar os agentes, e aumentar ela diminui o "azar" de modelos ruins ganharem de bons. Assim, esperamos também estabilizar o aprendizado. 
@@ -77,7 +77,7 @@ O código rodado pode ser visto em Diminuicao.ipnyb, e resultado dessas mudança
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/0da5b830-70c0-4a03-9e09-caa138493601" />
 
 
-Analisamos, rodando o código várias vezes, que o agente teve uma ótima curva de aprendizado, mas teve quedas abruptas e dificuldade em manter os melhores modelos. Essa análise inspirou a última mudança que fizemos no código:
+Analisamos, rodando o código várias vezes, que o agente teve uma ótima curva de aprendizado, mas teve quedas abruptas e dificuldade em manter os melhores modelos. Essa análise inspirou outra mudança que fizemos no código:
 
 # Treinando em três fases :
 
@@ -89,7 +89,20 @@ Na segunda fase (entre 40 a 80 por cento do treinamento), fizemos duas alteraç�
 
 Na terceira (e última) fase, decidimos parar totalmente com as mutações. Entendemos que essa fase é própria apenas para ajuste dos agentes, e forçar mudanças neles deixa de fazer sentido. Nessa fase os agentes ainda vão passar por seleção entre eles e aprendizado, mas não estaremos mais mudando seus parâmetros. Esperamos assim uma estabilidade muito grande da população, e uma melhora bem suave no desempenho dos agentes.
 
-Essa foi a última alteração que fizemos no código, e ele pode ser visto em "Fases.ipynb". Esses foram o resultados:
+O código pode ser visto em "Fases.ipynb". Esses foram o resultados:
+
+<img width="1190" height="590" alt="image" src="https://github.com/user-attachments/assets/72cd7c74-e1fc-4978-aeff-3b9f16b6b692" />
+
+Analisamos que os resultados foram bons, com alguns momentos do treinamento os agentes tendo média de performance quase chegando a menos 20. No final as performances dos agentes decairam um pouco, mas eles tiveram uma pontuação média em uma faixa entre -40 e -20. O decaimento na fase sem mutações fez com que nós abandonassemos ela na próxima alteração.
+
+# Alteração final: 
+
+A última alteração que fizemos no código foi mudar o tamanho da população dos agentes de 4 para 8. Essa alteração é fundamental para a exploração de mais parâmetros, pois teremos mais agentes sendo mutados e avaliados de acordo com suas performances. Selecionando agentes de dentro de uma população maior teremos também muito maior estabilidade na melhoria dos agentes, já que mutações ruins tem menor probabilidade de "contaminar" populações maiores. Essa alteração é torna o treino muito superior, e só não a fizemos antes devido a seu custo computacional. Além do aumento da população, fizemos o treino acontecer em duas fases ao invés de três: Na primeira (de 0 a 40% do treino) os agentes são todos mutados após a seleção, e tem a probabilidade de mutação new layer e na arquitetura estável igual a 0.05. Já na segunda o melhor agente de todos não passa por mutação, e a probabilidade de mutação new layer e na arquitetura são zeradas. Em ambas as fases os outros parâmetros de mutação passam por um decaimento que depende do progresso, com excessão da probabilidade de não ocorrrer uma mutação, que aumenta.  
+
+O código pode ser visto em "Populacao.ipynb". Esses foram o resultados:
+
+
+
 
 
 
