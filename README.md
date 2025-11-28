@@ -114,7 +114,7 @@ O código pode ser visto em "Final.ipynb". Esses foram o resultados:
 
 <img width="1189" height="590" alt="image" src="https://github.com/user-attachments/assets/315a32cf-15f7-45d5-b269-81f2ce02ab37" />
 
-Consideramos os agentes tiveram performances boas e estáveis, justificando todas as alterações que fizemos no código.
+Consideramos que os agentes tiveram performances boas e estáveis, justificando todas as alterações que fizemos no código.
 
 
 
