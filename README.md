@@ -21,7 +21,7 @@ Para tentar superar a instabilidade da performance dos agentes, as primeiras alt
 
   - Aumentamos muito a chance das mutações não acontecerem.
   - Diminuimos a chance das mudanças na arquitetura.
-  - Diminuimos muito a chance de adcionar outra camada.
+  - Diminuimos muito a chance de adicionar outra camada.
   - Diminuimos muito a chance de mudança dos parâmetros, para manter o aprendizado feito pelos agentes.
   - Diminuimos a intensidade de cada mutação.
 
