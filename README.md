@@ -92,7 +92,7 @@ O código pode ser visto em "Fases.ipynb". Esses foram o resultados:
 
 Rodamos o código e analisamos que os agentes conseguiram aprender bem, chegando a ter médias de -20 em suas performances. Entretanto, elas decaíram em um momento que projetamos maior estabilidade. 
 
-Porém, tentando rodar o código mais vezes, percebemos que essa primeira curva foi "sortuda". Não conseguimos reproduzir resultados tão bons mesmo sem alterações no código, e tivemos que alterar alguns parâmtros novamente. 
+Porém, tentando rodar o código mais vezes, percebemos que essa primeira curva foi "sortuda". Não conseguimos reproduzir resultados tão bons mesmo sem alterações no código, e tivemos que alterar alguns parâmetros novamente. 
 
 # Alteração final: 
 
