@@ -4,7 +4,7 @@ Trabalho Final RL:
 Francisco Kuchpil e Heitor Trielli 
 
  # Rodando o algoritmo inicial :
-  Para rodar o código original, instalamos todas as dependências usando WSL (para que o sistema tivesse suporte em Linux, já que o Windows teve problemas em aceitar algumas dependências). Para que ele rodasse, fizemos apenas uma alteração na função "create_population()", devido a versão do AgilRL usada. O código pode ser visto em Original.ipynb, e demorou 3h e 15 min para rodar totalmente. O resultado obtido da pontuação média da população de acordo com a iteração pode ser visto no gráfico:  
+  Para rodar o código original, instalamos todas as dependências usando WSL (para que o sistema tivesse suporte em Linux, já que o Windows teve problemas em aceitar algumas dependências). Para que ele rodasse, fizemos apenas uma alteração na função "create_population()", devido a versão do AgileRL usada. O código pode ser visto em Original.ipynb, e demorou 3h e 15 min para rodar totalmente. O resultado obtido da pontuação média da população de acordo com a iteração pode ser visto no gráfico:  
   
   
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/daef97e3-0df0-4027-811e-9f559e20bffa" />
@@ -58,7 +58,7 @@ O código rodado pode ser visto em "Parametros.ipnyb", e resultado de todas essa
 É possível ver que as mudanças deixaram o algoritmo mais estável, além de melhorar o desempenho. Essa melhora na performance inspirou outras mudanças no algoritmo:
 
 
-# Diminuindo os paramêtros de mutação ao longo do treino:  
+# Diminuindo os parâmetros de mutação ao longo do treino:  
 
 Interpretamos que diminuir os parâmetros de mutação foi muito positivo para a performance dos agente ao longo do tempo. Nas novas alterações no código diminuimos ainda mais a probabilidade de novas camadas nas mutações, e zeramos a probabilidade de mutações na arquitetura, variáveis que consideramos muito destrutivas e com pouco retorno pela exploração. Porém, consideramos que diminuir muito as outras probabilidades de mutação dos agentes reduziria demais a exploração, e poderíamos ficar presos a agentes com parâmetros ruins. Portanto, decidimos diminui-las ao longo do tempo, favorecendo assim uma maior exploração no ínicio e uma maior exploitação no final. Para implementar essa mudança, definimos a variável progress, que é uma fração do maior número de passos dado por um agente (variável que controla a continuidade do loop de treinamento) pelo número máximo de passos. Assim, 0 ≤ progresso < 1.
 
