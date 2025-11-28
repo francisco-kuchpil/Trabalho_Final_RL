@@ -97,7 +97,7 @@ Analisamos que os resultados foram bons, com alguns momentos do treinamento os a
 
 # Alteração final: 
 
-Para tentar resolver o decaimento da performance e dificuldade de covergência vistos na última fase no último código, resolvemos diminuir progressivamente o learning rate tanto do actor quanto do critic para todos os agentes a partir do momento que chegamos na última fase. Fizemos isso multiplicando o learning rate antigo por 0.9 toda vez que os agentes são avaliados, mas estabelecemos que o valor pode diminuir até 1^e-6. Esperamos com isso fazer o fine tuning dos bons agentes que conseguimos treinar após as fases anteriores, sem saltos muito grandes e mudanças intensas em seu comportamento. Além dessa mudança, achamos que a faixa 30-80 era mais apropriada para o learn step, pela experimentação em um setup com apenas um agente sem mutações. Portanto, também fizemos essa mudança.
+Para tentar resolver o decaimento da performance e dificuldade de covergência vistos na última fase no último código, resolvemos diminuir progressivamente o learning rate tanto do actor quanto do critic para todos os agentes a partir do momento que chegamos na última fase. Fizemos isso multiplicando o learning rate antigo por 0.9 toda vez que os agentes são avaliados, mas estabelecemos que o valor pode diminuir até 1^e-6. Esperamos com isso fazer o fine tuning dos bons agentes que conseguimos treinar após as fases anteriores, sem saltos muito grandes e mudanças intensas em seu comportamento.
 
 Assim nosso treinamento é dividido em três fases: Exploração forte, refinamento com mutações fracas e fine tuning com LR decaindo. 
 
