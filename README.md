@@ -8,9 +8,6 @@ Francisco Kuchpil e Heitor Trielli
   
   
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/daef97e3-0df0-4027-811e-9f559e20bffa" />
-
-
-
   
 Analisamos que o algoritmo inicial apresenta uma instabilidade muito grande no treinamento, oscilando em sua pontuação média e não tendo uma melhoria estável na sua performence ao longo do tempo. 
 
@@ -85,7 +82,7 @@ Percebemos que o problema tratado é extremamente instável. Pela gráfico das p
   
 Portanto, decidimos dividir o treinamento dos agentes em três fases. Na primeira, de 0 a 40 por cento do treinamento, treinamos os agentes da mesma forma que treinamos os agentes anteriores. Definimos os praticamente os mesmos padrões de mutação, e o mesmo termo de decaimento para esses parâmetros. A única diferença é que voltamos a colocar as probabilidades de mutação na arquitetura e new layer (ambas como 0.05), um valor ainda baixo. Fizemos isso porque achamos que na fase inicial essas mutações não seriam muito destrutivas, pois o modelo ainda estaria sendo treinado, e vale a pena explorar essas mutações.
   
-Na segunda fase (entre 40 a 80 por cento do treinamento), fizemos duas alterações: A primeira foi diminuir a probabilidade dessas duas mutações para 0.01. Consideramos que com o modelo já mais treinado, essas mutações passam a ser muito destrutivas e vale menos a pena explorar elas. A segunda mudança foi parar totalmente de mutar o melhor agente da população. Assim, a população continuaria passando por mutações, e muitas vezes o própio melhor agente teria cópias mutadas adcionadas na população (caso ele fosse selecionado em um sorteio), permitindo assim também a exploração em torno de seus parâmetros. Assim, teremos a vantagem de continuar sempre com o melhor agente após as avaliações. Isso diminuirá a exploração (pois teremos 3 possibilidades de mutação após mutação ao invés de duas), mas deve garantir uma estabilidade muito maior para a performance dos agentes em uma fase em que eles já passaram por um treinamento com mais exploração.
+Na segunda fase (entre 40 a 80 por cento do treinamento), fizemos duas alterações: A primeira foi diminuir a probabilidade dessas duas mutações para 0.01. Consideramos que com o modelo já mais treinado, essas mutações passam a ser muito destrutivas e vale menos a pena explorar elas. A segunda mudança foi parar totalmente de mutar o melhor agente da população. Assim, a população continuaria passando por mutações, mas teremos a vantagem de continuar sempre com o melhor agente após as avaliações. Isso diminuirá a exploração (pois teremos 3 possibilidades de mutação após mutação ao invés de duas), mas deve garantir uma estabilidade muito maior para a performance dos agentes em uma fase em que eles já passaram por um treinamento com mais exploração.
 
 Na terceira (e última) fase, decidimos parar totalmente com as mutações. Entendemos que essa fase é própria apenas para ajuste dos agentes, e forçar mudanças neles deixa de fazer sentido. Nessa fase os agentes ainda vão passar por seleção entre eles e aprendizado, mas não estaremos mais mudando seus parâmetros. Esperamos assim uma estabilidade muito grande da população, e uma melhora bem suave no desempenho dos agentes.
 
@@ -107,14 +104,17 @@ Nosso modelo deixava seus parâmetros de aprendizado muito a mercê das mutaçõ
 - Estreitamos a faixa aceitável para o learn step após as mutações
 - Estreitamos a faixa aceitável de batch size
 
-Assim nosso código teria muito mais estabilidade e performance melhorada. Depois, PARAMETROS MUTAÇÃO
+Também diminuimos a probabilidade de mutação nos parâmetros, e zeramos a probabilidade da mutação new layer. Assim nosso código teria muito mais estabilidade, e os torneios seriam mais para comparar agentes com graus de aprendizado diferente do que explorar diferentes parâmetros (apesar dessa exploração ainda existir em uma faixa muito mais estreita).
 
+Para além disso, mantivemos as mesmas três fases para o treinamento. Na primeira mutamos toda a população após os torneios, na segunda não mutamos o melhor agente e na terceira paramos totalmente as mutações, e só realizamos torneios. Porém, na terceira fase adicionamos um termo de decaimento para os learning rates dos agentes, que passa a ser 0.9 vezes o valor antigo toda vez que fazemos um torneio, com um limite inferior de 1^e-6. Tanto o lr do actor quando o lr do critic passam por essa mudança. Assim, esperamos fazer um fine tuning mais gradual, sem grandes alterações no comportamento dos agentes devido a learning rates altos. 
 
+Portanto teremos as três fases: Exploração controlada de parâmetros, refinamento com mutações fracas e fine tuning com LR decaindo. 
 
+O código pode ser visto em "Final.ipynb". Esses foram o resultados:
 
-Assim nosso treinamento é dividido em três fases: Exploração forte, refinamento com mutações fracas e fine tuning com LR decaindo. 
+<img width="1189" height="590" alt="image" src="https://github.com/user-attachments/assets/315a32cf-15f7-45d5-b269-81f2ce02ab37" />
 
-O código pode ser visto em "Populacao.ipynb". Esses foram o resultados:
+Consideramos os resultados foram muito bons e instáveis, justificando todas as alterações que fizemos no código.
 
 
 
