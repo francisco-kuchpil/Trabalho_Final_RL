@@ -77,7 +77,7 @@ O código rodado pode ser visto em Diminuicao.ipnyb, e resultado dessas mudança
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/0da5b830-70c0-4a03-9e09-caa138493601" />
 
 
-Analisamos, rodando o código várias vezes, que o agente teve uma ótima curva de aprendizado, mas teve quedas abruptas e dificuldade em manter os melhores modelos. Essa análise inspirou outra mudança que fizemos no código:
+Analisamos, rodando o código várias vezes, que o agente teve uma ótima curva de aprendizado, mas teve quedas abruptas e dificuldade em manter os melhores modelos. 
 
 # Treinando em três fases :
 
@@ -93,11 +93,24 @@ O código pode ser visto em "Fases.ipynb". Esses foram o resultados:
 
 <img width="1190" height="590" alt="image" src="https://github.com/user-attachments/assets/72cd7c74-e1fc-4978-aeff-3b9f16b6b692" />
 
-Analisamos que os resultados foram bons, com alguns momentos do treinamento os agentes tendo média de performance quase chegando a menos 20. No final as performances dos agentes decaíram em um momento que projetamos maior estabilidade. Essa análise motivou a última alteração que fizemos no código.
+Rodamos o código e analisamos que os agentes conseguiram aprender bem, chegando a ter médias de -20 em suas performances. Entretanto, elas decaíram em um momento que projetamos maior estabilidade. 
+
+Porém, tentando rodar o código mais vezes, percebemos que essa primeira curva foi "sortuda". Não conseguimos reproduzir resultados tão bons mesmo sem alterações no código, e tivemos que alterar alguns parâmtros novamente. 
 
 # Alteração final: 
 
-Para tentar resolver o decaimento da performance e dificuldade de covergência vistos na última fase no último código, resolvemos diminuir progressivamente o learning rate tanto do actor quanto do critic para todos os agentes a partir do momento que chegamos na última fase. Fizemos isso multiplicando o learning rate antigo por 0.9 toda vez que os agentes são avaliados, mas estabelecemos que o valor pode diminuir até 1^e-6. Esperamos com isso fazer o fine tuning dos bons agentes que conseguimos treinar após as fases anteriores, sem saltos muito grandes e mudanças intensas em seu comportamento.
+Nosso modelo deixava seus parâmetros de aprendizado muito a mercê das mutações aleatórias, e por isso rodar o mesmo código várias vezes resultava em performances muito diversas. Portanto, foi necessário estreitar ainda mais as faixas de parâmetros que nosso modelo poderia assumir após as mutações. Refinamos os parâmetros que tinhamos definido testando o aprendizado de apenas um agente sem mutações. Fizemos as seguintes mudanças: 
+
+- Diminuimos o LR inicial do actor e do critic (e igualamos eles)
+- Estreitamos a faixa de valores possíveis de LR após as mutações
+- Diminuimos o learn step inicial
+- Estreitamos a faixa aceitável para o learn step após as mutações
+- Estreitamos a faixa aceitável de batch size
+
+Assim nosso código teria muito mais estabilidade e performance melhorada. Depois, PARAMETROS MUTAÇÃO
+
+
+
 
 Assim nosso treinamento é dividido em três fases: Exploração forte, refinamento com mutações fracas e fine tuning com LR decaindo. 
 
