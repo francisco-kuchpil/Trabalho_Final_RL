@@ -49,7 +49,7 @@ Apesar disso, mantivemos as possibilidades de Learn Step mais ou menos na mesma 
 - Diminuimos Tau.
 - Aumentamos Gamma consideravelmente.
 
-O código rodado pode ser visto em Parametros.ipnyb, e resultado de todas essas mudanças foi o seguinte: 
+O código rodado pode ser visto em "Parametros.ipnyb", e resultado de todas essas mudanças foi o seguinte: 
 
 
 <img width="1190" height="590" alt="image" src="https://github.com/user-attachments/assets/466a8882-2889-4a2f-bcfa-2d6b5c072bd1" />
@@ -69,7 +69,7 @@ Além disso, também aumentamos progressivamente a probabilidade de não haver u
 
 Também aumentamos consideravelmente (de 1 para 5) a variável eval_loop. Ela controla quantos valores de fitness são usados para avaliar os agentes, e aumentar ela diminui o "azar" de modelos ruins ganharem de bons. Assim, esperamos também estabilizar o aprendizado. 
 
-O código rodado pode ser visto em Diminuicao.ipnyb, e resultado dessas mudanças foi o seguinte:
+O código rodado pode ser visto em "Diminuicao.ipnyb", e resultado dessas mudanças foi o seguinte:
 
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/0da5b830-70c0-4a03-9e09-caa138493601" />
 
