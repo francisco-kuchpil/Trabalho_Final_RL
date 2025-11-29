@@ -74,7 +74,7 @@ O código rodado pode ser visto em "Diminuicao.ipnyb", e resultado dessas mudan�
 <img width="886" height="439" alt="image" src="https://github.com/user-attachments/assets/0da5b830-70c0-4a03-9e09-caa138493601" />
 
 
-Analisamos, rodando o código várias vezes, que o agente teve uma ótima curva de aprendizado, mas teve quedas abruptas e dificuldade em manter os melhores modelos. 
+Analisamos, rodando o código várias vezes, que os agentes até conseguem chegar a bons resultados, mas apresentam quedas abruptas e dificuldade em manter os melhores modelos. 
 
 # Treinando em três fases :
 
@@ -108,13 +108,13 @@ Também diminuimos a probabilidade de mutação nos parâmetros, e zeramos a pro
 
 Para além disso, mantivemos as mesmas três fases para o treinamento. Na primeira mutamos toda a população após os torneios, na segunda não mutamos o melhor agente e na terceira paramos totalmente as mutações, e só realizamos torneios. Porém, na terceira fase adicionamos um termo de decaimento para os learning rates dos agentes, que passa a ser 0.9 vezes o valor antigo toda vez que fazemos um torneio, com um limite inferior de 1^e-6. Tanto o lr do actor quando o lr do critic passam por essa mudança. Assim, esperamos fazer um fine tuning mais gradual, sem grandes alterações no comportamento dos agentes devido a learning rates altos. 
 
-Portanto teremos as três fases: Exploração controlada de parâmetros, refinamento com mutações fracas e fine tuning sem mutações com LR decaindo. 
+Portanto teremos as três fases: Exploração controlada de parâmetros, refinamento com mutações fracas e fine tuning sem mutações com LR decaindo. Continuamos com o decaimento graudal da probabilidade de mutações na fase 1 e 2, como na última versão do código. 
 
 O código pode ser visto em "Final.ipynb". Esses foram o resultados:
 
 <img width="1189" height="590" alt="image" src="https://github.com/user-attachments/assets/315a32cf-15f7-45d5-b269-81f2ce02ab37" />
 
-Consideramos que os agentes tiveram performances boas e estáveis, justificando todas as alterações que fizemos no código. Essa ultima versão do código também está disponível em "Alterado.py".
+Consideramos que os agentes tiveram performances boas e estáveis, justificando as alterações que fizemos no código. Essa ultima versão do código também está disponível em "Alterado.py".
 
 
 
