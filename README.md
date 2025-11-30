@@ -1,7 +1,7 @@
 # Trabalho Final RL:  
 ### Francisco Kuchpil e Heitor Trielli 
 
-## Rodando o algoritmo inicial :
+## Rodando o algoritmo inicial:
 Para rodar o código original, instalamos todas as dependências usando WSL (para que o sistema tivesse suporte em Linux, já que o Windows teve problemas em aceitar algumas dependências). Para que ele rodasse, fizemos apenas uma alteração na função "create_population()", devido a versão do AgileRL usada. O código pode ser visto em Original.ipynb, e demorou 3h e 15 min para rodar totalmente. O resultado obtido da pontuação média da população de acordo com a iteração pode ser visto no gráfico abaixo:  
 
   
@@ -73,7 +73,7 @@ O código rodado pode ser visto em "Diminuicao.ipnyb", e resultado dessas mudan�
 
 Analisamos, ao rodar o código várias vezes, que os agentes até conseguem chegar a bons resultados, mas apresentam quedas abruptas e dificuldade em manter os melhores modelos. 
 
-## Treinando em três fases :
+## Treinando em três fases:
 
 Percebemos que o problema tratado é instável. Pela gráfico das pontuações médias, nossa configuração era capaz de alcançar um bom desempenho, com a exploração de parâmetros sendo feita pela mutação e seleção de bons agentes. Porém, a população tem muitas quedas abruptas em sua performance, e não consegue estabilizar bons resultados.
   
