@@ -1,7 +1,7 @@
-# Trabalho Final RL:  
+# Trabalho Final RL
 ### Francisco Kuchpil e Heitor Trielli 
 
-## Rodando o algoritmo inicial:
+## Rodando o algoritmo inicial
 Para rodar o código original, instalamos todas as dependências usando WSL (para que o sistema tivesse suporte em Linux, já que o Windows teve problemas em aceitar algumas dependências). Para que ele rodasse, fizemos apenas uma alteração na função "create_population()", devido a versão do AgileRL usada. O código pode ser visto em Original.ipynb, e demorou 3h e 15 min para rodar totalmente. O resultado obtido da pontuação média da população de acordo com a iteração pode ser visto no gráfico abaixo:  
 
   
@@ -9,11 +9,11 @@ Para rodar o código original, instalamos todas as dependências usando WSL (par
   
 Podemos verificar que que o algoritmo inicial apresenta uma instabilidade muito grande no treinamento, oscilando em sua pontuação média e não tendo uma melhoria estável na sua performence ao longo do tempo. 
 
-## Rodando o algoritmo com mudança de parâmetros:  
+## Rodando o algoritmo com mudança de parâmetros  
 
 Para tentar superar a instabilidade da performance dos agentes, a primeira alteração que fizemos no algoritmo foi a mudança de alguns parâmetros. Fizemos isso de acordo com as seguintes justificativas:  
 
-#### 1) Mudança nos parâmetros de mutação: 
+#### 1) Mudança nos parâmetros de mutação 
 
   Consideramos essa a alteração mais importante, pois entendemos que os parâmetros de mutação estavam muito altos. Isso explicaria a oscilação da pontuação média grande, e a dificuldade dos agentes de aprender, tendo em vista que os agentes estão sendo alterados com muita frequência e intensidade. Desta forma, fizemos as seguintes adaptações: 
 
@@ -25,7 +25,7 @@ Para tentar superar a instabilidade da performance dos agentes, a primeira alter
 
 Apesar dessas mudanças, não alteramos a probabilidade dos hiper-parâmetros de RL mudarem dado que o agente passou por uma mutação, pois consideramos importante os agentes experimentarem o aprendizado com diferentes hiper-parâmetros. Fizemos, porém, algumas alterações nas faixas aceitáveis para tais hiper-parâmetros, descritas abaixo.
 
-#### 2) Mudança na faixa de hiperparâmetros. 
+#### 2) Mudança na faixa de hiperparâmetros
 
   Consideramos que a faixa permitida de hiper-parâmetros de aprendizado era muito larga, e incentivava a exploração de valores extremos que não seriam ótimos. Por consequência, fizemos as seguintes alterações: 
 
@@ -36,7 +36,7 @@ Apesar dessas mudanças, não alteramos a probabilidade dos hiper-parâmetros de
 
 Mantivemos, porém, as possibilidades de Learn Step na mesma faixa, pois achamos importante explorar as diferentes possibilidades para esse hiper-parâmetro.
 
-#### 3) Mudança nos hiper-parâmetros iniciais. 
+#### 3) Mudança nos hiper-parâmetros iniciais
 
   Ajustamos também alguns hiper-parâmetros iniciais para valores que consideramos mais adequados: 
 
@@ -56,7 +56,7 @@ O código rodado pode ser visto em "Parametros.ipnyb", e o resultado de todas es
 É possível ver que as mudanças deixaram o algoritmo mais estável, além de melhorar o desempenho.
 
 
-## Diminuindo os parâmetros de mutação ao longo do treino:  
+## Diminuindo os parâmetros de mutação ao longo do treino  
 
 Interpretamos que diminuir os parâmetros de mutação foi muito positivo para a performance dos agente ao longo do tempo, mas conseguimos melhorar ainda mais o desempenho do modelo. Nas novas alterações no código diminuimos ainda mais a probabilidade de novas camadas nas mutações, e zeramos a probabilidade de mutações na arquitetura, variáveis que consideramos muito destrutivas e com pouco retorno pela exploração. Porém, consideramos que diminuir muito as outras probabilidades de mutação dos agentes reduziria demais a exploração, e poderíamos ficar presos a agentes com comportamentos ruins. Portanto, decidimos diminui-las ao longo do tempo, favorecendo assim uma maior exploração no ínicio e uma maior exploitação no final. Para implementar essa mudança, definimos a variável progress, que é uma fração do maior número de passos dado por um agente (variável que controla a continuidade do loop de treinamento) pelo número máximo de passos. Assim, 0 ≤ progresso < 1.
 
@@ -73,7 +73,7 @@ O código rodado pode ser visto em "Diminuicao.ipnyb", e resultado dessas mudan�
 
 Analisamos, ao rodar o código várias vezes, que os agentes até conseguem chegar a bons resultados, mas apresentam quedas abruptas e dificuldade em manter os melhores modelos. 
 
-## Treinando em três fases:
+## Treinando em três fases
 
 Percebemos que o problema tratado é instável. Pela gráfico das pontuações médias, nossa configuração era capaz de alcançar um bom desempenho, com a exploração de parâmetros sendo feita pela mutação e seleção de bons agentes. Porém, a população tem muitas quedas abruptas em sua performance, e não consegue estabilizar bons resultados.
   
@@ -91,7 +91,7 @@ Rodamos o código e analisamos que os agentes conseguiram aprender bem, chegando
 
 Porém, ao executar o código mais vezes, percebemos que essa primeira curva foi "sortuda". Nas demais execuções, mesmo sem alterar o código, os resultados foram piores, o que nos levou a alteração final, descrita na próxima sessão. 
 
-## Alteração final: 
+## Alteração final
 
 Nosso modelo deixava seus parâmetros de aprendizado muito 'à mercê' das mutações aleatórias, e por isso rodar o mesmo código alterando a seed resultava em performances muito diversas. Portanto, foi necessário estreitar ainda mais as faixas de parâmetros que nosso modelo poderia assumir após as mutações. Refinamos então os parâmetros que tinhamos definido testando o aprendizado de apenas um agente sem mutações. Fizemos as seguintes mudanças: 
 
